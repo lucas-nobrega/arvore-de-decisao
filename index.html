@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Simulador de Árvore de Decisão - Certificações ANBIMA / CPA</title>
+  <meta name="description" content="Simulador interativo de tomada de decisão e relacionamento com o cliente em conformidade com as diretrizes ANBIMA e certificações CPA.">
+
+  <!-- Tipografia Moderna (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="app-container" id="app">
+    <!-- Topbar Enxuta -->
+    <header class="app-header" role="banner">
+      <div class="header-badges">
+        <span class="badge-code" id="badge-case-id">26-CPA-0439</span>
+        <span class="badge-diff" id="badge-case-diff">Média</span>
+        <span class="badge-category" id="badge-case-category">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M14 10v11M12 2L2 7h20L12 2z"/>
+          </svg>
+          <span id="text-case-category">Relacionamento com o Cliente</span>
+        </span>
+      </div>
+
+      <div class="header-actions">
+        <!-- Seletor de Casos -->
+        <select id="case-selector" class="case-select-dropdown" aria-label="Selecionar Caso de Simulação">
+          <option value="26-CPA-0439">Caso 1: Mariana & Roberto (PLDFT / KYC)</option>
+          <option value="043.02.CPA.001">Caso 2: Lucas & Carlos (Fundo Educacional)</option>
+        </select>
+
+        <!-- Reiniciar Caso -->
+        <button id="btn-restart" class="btn-icon" title="Reiniciar Caso" aria-label="Reiniciar Caso">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+            <path d="M8 16H3v5"/>
+          </svg>
+        </button>
+
+        <!-- Desfazer Escolha -->
+        <button id="btn-undo" class="btn-icon" title="Desfazer Escolha" aria-label="Desfazer Escolha" style="display:none;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 14 4 9l5-5"/>
+            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+          </svg>
+        </button>
+
+        <!-- Alternar Tema Claro/Escuro -->
+        <button id="btn-theme-toggle" class="btn-icon" title="Alternar Tema" aria-label="Alternar Tema Claro ou Escuro">
+          <svg id="theme-icon-dark" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+          <svg id="theme-icon-light" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Layout Dividido (Split Screen) -->
+    <main class="main-layout" role="main">
+      <!-- Coluna Esquerda: Enunciado & Dados do Cliente -->
+      <aside class="context-column" aria-label="Contexto e Enunciado da Situação">
+        <!-- Botão Acordeão visível apenas em telas móveis -->
+        <button id="mobile-context-toggle" class="mobile-context-toggle" aria-expanded="false" aria-controls="context-details">
+          <span>Ver Enunciado & Detalhes da Situação</span>
+          <span id="accordion-arrow">▾</span>
+        </button>
+
+        <div id="context-details" class="context-collapsible-content">
+          <div>
+            <h2 class="context-title">Enunciado</h2>
+            <p class="context-body" id="text-enunciado">
+              Carregando contexto...
+            </p>
+          </div>
+
+          <div class="client-brief-card" id="client-card">
+            <span class="brief-label">Perfil do Cliente</span>
+            <span class="brief-value" id="text-client-name">-</span>
+            <span class="brief-label" style="margin-top: 4px;">Situação Registrada</span>
+            <span class="brief-value" id="text-client-status">-</span>
+          </div>
+        </div>
+
+        <!-- Estatísticas e Progresso -->
+        <div class="stats-card">
+          <div class="stats-row">
+            <span>Etapa Atual</span>
+            <span id="text-step-indicator" style="font-weight: 700; color: var(--text-main);">1 de 4</span>
+          </div>
+          <div class="stats-row">
+            <span>Pontuação Acumulada</span>
+            <span class="stats-score-value" id="text-score-counter">0 pts</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar-fill" id="progress-bar" style="width: 0%;"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Coluna Direita: Diálogo & Alternativas -->
+      <section class="dialogue-column" aria-label="Diálogo Interativo">
+        <div class="dialogue-wrapper" id="dialogue-area">
+          <!-- Balão do Cliente -->
+          <div class="chat-bubble-client" id="client-bubble">
+            <div class="client-author-tag" id="client-name-tag">Cliente</div>
+            <p id="client-prompt-text">Carregando prompt...</p>
+          </div>
+
+          <!-- Alternativas da Mariana / Lucas -->
+          <div class="options-list" id="options-container" role="group" aria-label="Alternativas de Resposta">
+            <!-- Gerado dinamicamente -->
+          </div>
+
+          <!-- Feedback Overlay da Escolha Feita -->
+          <div class="feedback-overlay-card" id="feedback-card" style="display: none;" role="region" aria-live="polite">
+            <div class="feedback-header">
+              <span class="score-badge" id="feedback-score-badge">+5 Pts • Excelente</span>
+            </div>
+            <p class="chosen-quote" id="feedback-quote"></p>
+            <div class="justification-text" id="feedback-justification"></div>
+            <div class="feedback-actions">
+              <button id="btn-continue-step" class="btn-primary">
+                <span>Continuar Diálogo</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Seção de Quiz Complementar (quando houver) -->
+          <div class="quiz-section" id="quiz-container" style="display: none;" role="region" aria-label="Questões Finais de Fixação">
+            <span class="quiz-badge" id="quiz-badge-label">Questão de Múltipla Escolha</span>
+            <h3 class="quiz-title" id="quiz-title">Questão Final</h3>
+            <p class="quiz-question-text" id="quiz-question-text"></p>
+            <div class="quiz-options" id="quiz-options-list"></div>
+            <div class="quiz-feedback-box" id="quiz-feedback" style="display: none;"></div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+              <button id="btn-quiz-next" class="btn-primary" style="display: none;">Próxima Questão</button>
+            </div>
+          </div>
+
+          <!-- Card de Conclusão Final -->
+          <div class="completion-card" id="completion-container" style="display: none;" role="region" aria-label="Resultado da Simulação">
+            <div class="trophy-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                <path d="M4 22h16"/>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+              </svg>
+            </div>
+            <h2 class="completion-title">Simulação Concluída!</h2>
+            <div class="score-circle" id="final-percentage">100%</div>
+            <div class="rating-badge badge-success" id="final-rating-badge">Excelente Desempenho</div>
+            <p class="completion-feedback" id="final-feedback-text">
+              Você demonstrou excelente aderência aos padrões éticos e regulatórios.
+            </p>
+            <div style="display: flex; gap: 12px; margin-top: 12px;">
+              <button id="btn-retry" class="btn-primary">Refazer Simulação</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Painel de Desenvolvimento (Ativado APENAS com ?dev=true na URL) -->
+    <aside class="dev-panel-container" id="dev-panel" aria-label="Painel de Ferramentas de Desenvolvimento">
+      <div class="dev-header">
+        <h3>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          Painel de Desenvolvimento (Ambiente Interno)
+        </h3>
+        <span style="font-size: 0.75rem; color: #94a3b8;">Visível apenas via URL (?dev=true)</span>
+      </div>
+      <p style="margin-bottom: 8px; color: #cbd5e1; font-size: 0.82rem;">
+        Cole ou edite a árvore de decisão em formato JSON abaixo para validar e testar em tempo real:
+      </p>
+      <textarea id="dev-json-input" class="dev-textarea" spellcheck="false" placeholder="Cole o JSON da árvore de decisão aqui..."></textarea>
+      <div id="dev-validation-msg" style="margin-top: 6px; font-size: 0.8rem; font-weight: 600;"></div>
+      <div class="dev-actions">
+        <button id="btn-dev-test" class="btn-dev btn-dev-primary">Carregar e Testar JSON</button>
+        <button id="btn-dev-download-template" class="btn-dev btn-dev-secondary">Baixar Template JSON</button>
+        <button id="btn-dev-load-sample" class="btn-dev btn-dev-secondary">Carregar Modelo Atual no Editor</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/cases.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

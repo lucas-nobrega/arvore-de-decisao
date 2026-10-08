@@ -1,0 +1,335 @@
+{
+  "$schema": "./schema.json",
+  "id": "043.02.CPA.001-dialogue_tree",
+  "certificacao": "CPA",
+  "objeto": "3.1.5.5.",
+  "dificuldade": "Média",
+  "categoria": "Relacionamento com o Cliente",
+  "descricao": "O gerente de relacionamento entra em contato com um cliente de perfil conservador, que já possui investimentos (~150k em ações e CDB), para oferecer um fundo educacional para descendentes.",
+  "contexto": "Você é Lucas, gerente de relacionamento do Banco Capital. Você identificou que Carlos, um cliente que já possui investimentos, tem um filho pequeno. Seu objetivo é apresentar um fundo educacional como alternativa de planejamento financeiro. Sua abordagem deve ser ética, consultiva e respeitar os protocolos adequados.",
+  "cliente": {
+    "nome": "Carlos Mendes",
+    "perfil": "Conservador",
+    "relacionamento": "Cliente há 5 anos"
+  },
+  "steps": {
+    "1": {
+      "prompt": "Bom dia. Quem é?",
+      "options": {
+        "A": {
+          "text": "Bom dia, Carlos. Aqui é Lucas, seu gerente de relacionamento no Banco Capital. Podemos conversar um instante? Gostaria de apresentar uma oportunidade de planejamento financeiro para sua família.",
+          "score": 5,
+          "next": "2",
+          "justification": "Melhor escolha – abordagem educada, clara e profissional, garantindo abertura para a conversa."
+        },
+        "B": {
+          "text": "Olá, Carlos! Sou Lucas, gerente do Banco Capital. Tenho uma solução interessante para você. Podemos falar?",
+          "score": 3,
+          "next": "2",
+          "justification": "Boa escolha – abordagem direta, mas falta clareza sobre o tema da conversa."
+        },
+        "C": {
+          "text": "Oi, Carlos, sou do Banco Capital. Preciso falar com você sobre um investimento importante.",
+          "score": 1,
+          "next": "2b",
+          "justification": "Escolha subótima – abordagem impessoal e vaga, pode gerar resistência no cliente."
+        },
+        "D": {
+          "text": "Carlos, sou Lucas do Banco Capital. Precisamos conversar sobre algo essencial para o futuro da sua família.",
+          "score": 0,
+          "next": "2b",
+          "justification": "Escolha incorreta – tom alarmista e agressivo, pode afastar o cliente."
+        }
+      }
+    },
+    "2": {
+      "prompt": "Vou entrar em uma reunião agora, mas tenho dois minutinhos.",
+      "options": {
+        "A": {
+          "text": "Trata-se de um fundo educacional que permite acumular recursos ao longo do tempo, com benefícios fiscais e flexibilidade para que você possa garantir os custos educacionais da sua filha sem comprometer outros investimentos.",
+          "score": 5,
+          "next": "3",
+          "justification": "Melhor escolha – sintética, destaca o valor central e respeita o tempo reduzido do cliente."
+        },
+        "B": {
+          "text": "Gostaria de conversar sobre como você pode garantir os custos de ensino da sua filha com um fundo específico para isso.",
+          "score": 3,
+          "next": "3",
+          "justification": "Boa escolha – objetiva, mas traz menos detalhes sobre diferenciais competitivos."
+        },
+        "C": {
+          "text": "Estou falando de um investimento que pode ser útil para o futuro da sua filha.",
+          "score": 1,
+          "next": "3b",
+          "justification": "Escolha subótima – muito genérica para prender a atenção em apenas dois minutos."
+        },
+        "D": {
+          "text": "Quero apresentar um produto de investimento que pode ajudar no planejamento da sua família.",
+          "score": 0,
+          "next": "3b",
+          "justification": "Escolha incorreta – não personaliza a conversa e foca na venda do produto, não na necessidade."
+        }
+      }
+    },
+    "2b": {
+      "prompt": "Não sei se entendi a que se refere, Lucas...",
+      "options": {
+        "A": {
+          "text": "Refiro-me a um fundo educacional que oferece vantagens como isenção fiscal sobre os rendimentos, uma estrutura pensada para crescimento seguro e previsibilidade de resgate alinhada ao calendário educacional da sua filha.",
+          "score": 5,
+          "next": "3",
+          "justification": "Melhor escolha – retoma o diálogo com profissionalismo e esclarece o propósito financeiro."
+        },
+        "B": {
+          "text": "Refiro-me a uma opção de investimento, alinhada ao seu perfil e situação, que podem lhe ser vantajosas.",
+          "score": 3,
+          "next": "3",
+          "justification": "Boa escolha – tenta recuperar a empatia, embora ainda um pouco abstrato."
+        },
+        "C": {
+          "text": "É um fundo de investimento para bancar a educação dos seus descendentes. Não oferece liquidez, mas os retornos compensam essa limitação.",
+          "score": 1,
+          "next": "3b",
+          "justification": "Escolha subótima – destaca uma desvantagem (liquidez) sem apresentar o contexto de segurança."
+        },
+        "D": {
+          "text": "É um investimento rentável, feito para esse tipo de situação. A única ressalva é que se precisar do dinheiro rapidamente, terá que pagar penalidades para o resgate antecipado.",
+          "score": 0,
+          "next": "3b",
+          "justification": "Escolha incorreta – foca em penalidades e transmite insegurança ao cliente."
+        }
+      }
+    },
+    "3": {
+      "prompt": "Eu agradeço, mas meu dinheiro já está investido.",
+      "options": {
+        "A": {
+          "text": "Entendo, Carlos. O fundo pode complementar sua estratégia atual, trazendo benefícios fiscais e previsibilidade para a educação da sua filha.",
+          "score": 5,
+          "next": "4",
+          "justification": "Melhor escolha – acolhe a colocação do cliente e posiciona o fundo como solução complementar."
+        },
+        "B": {
+          "text": "Acredito que esse fundo pode agregar valor à sua estratégia. Se quiser, posso explicar melhor.",
+          "score": 3,
+          "next": "4",
+          "justification": "Boa escolha – postura aberta e respeitosa, mas sem argumentos técnicos imediatos."
+        },
+        "C": {
+          "text": "Você pode estar perdendo uma boa oportunidade ao não considerar esse fundo.",
+          "score": 1,
+          "next": "4",
+          "justification": "Escolha subótima – tom de pressão que pode gerar rejeição."
+        },
+        "D": {
+          "text": "Se seus investimentos são suficientes, talvez não precise desse fundo, mas posso mostrar os detalhes mesmo assim?",
+          "score": 0,
+          "next": "4",
+          "justification": "Escolha incorreta – desvaloriza a própria proposta e demonstra insegurança profissional."
+        }
+      }
+    },
+    "3b": {
+      "prompt": "Olha, não tenho muito interesse em novos produtos agora. Minha carteira já está fechada.",
+      "options": {
+        "A": {
+          "text": "Compreendo perfeitamente, Carlos. Nosso objetivo não é substituir seus investimentos atuais, mas apenas apresentar uma alternativa com foco exclusivo no ciclo educacional. Sem compromisso algum.",
+          "score": 5,
+          "next": "4",
+          "justification": "Melhor escolha – reduz a resistência e reforça a consultoria de longo prazo."
+        },
+        "B": {
+          "text": "Entendo. Mas vale a pena pelo menos conhecer os benefícios tributários antes de descartar.",
+          "score": 3,
+          "next": "4",
+          "justification": "Boa escolha – foca em valor tributário, embora um pouco insistente."
+        },
+        "C": {
+          "text": "É uma pena, muitos clientes estão aproveitando essa oportunidade agora.",
+          "score": 1,
+          "next": "4",
+          "justification": "Subótima – argumento de efeito manada pouco profissional."
+        },
+        "D": {
+          "text": "O senhor quem sabe. Se mudar de ideia me procure.",
+          "score": 0,
+          "next": "4",
+          "justification": "Incorreta – desiste do cliente de maneira desinteressada e ríspida."
+        }
+      }
+    },
+    "4": {
+      "prompt": "Entendi. Olha, eu já guardo uma quantia mensal e invisto em CDBs e ações para garantir o futuro da minha filha. O que esse fundo oferece de diferente em relação à estratégia que já sigo?",
+      "options": {
+        "A": {
+          "text": "O fundo educacional oferece vantagens como isenção fiscal sobre os rendimentos, uma estrutura pensada para crescimento seguro e previsibilidade de resgate alinhada ao calendário educacional da sua filha.",
+          "score": 5,
+          "next": "5",
+          "justification": "Melhor escolha – diferenciação técnica precisa (tributação, blindagem de prazo e planejamento)."
+        },
+        "B": {
+          "text": "É um fundo estruturado para longo prazo, que auxilia na formação de patrimônio para despesas educacionais.",
+          "score": 3,
+          "next": "5",
+          "justification": "Boa escolha – sintetiza a ideia, mas não enfatiza os ganhos fiscais frente ao CDB/ações."
+        },
+        "C": {
+          "text": "É um tipo de investimento que ajuda a cobrir custos educacionais.",
+          "score": 1,
+          "next": "5",
+          "justification": "Escolha subótima – resposta superficial que não agrega novidade ao que o cliente já sabe."
+        },
+        "D": {
+          "text": "Esse fundo pode ser uma alternativa para ajudar no planejamento financeiro da educação da sua filha, mas não garante diretamente o pagamento da faculdade.",
+          "score": 0,
+          "next": "5",
+          "justification": "Escolha incorreta – foco excessivo em limitações sem demonstrar os reais benefícios."
+        }
+      }
+    },
+    "5": {
+      "prompt": "Parece uma opção interessante. Quais são as alternativas que o banco oferece para esse tipo de investimento?",
+      "options": {
+        "A": {
+          "text": "Temos diferentes modalidades de fundos educacionais, dependendo do seu perfil e objetivos. Podemos simular um plano ideal para você.",
+          "score": 5,
+          "next": "6",
+          "justification": "Melhor escolha – demonstra foco no suitability e propõe uma simulação personalizada."
+        },
+        "B": {
+          "text": "Nosso banco oferece fundos específicos para esse fim, todos com boa rentabilidade no longo prazo.",
+          "score": 3,
+          "next": "6",
+          "justification": "Boa escolha – transmite credibilidade, embora generalista sobre rentabilidade."
+        },
+        "C": {
+          "text": "Temos algumas opções que podem se encaixar, posso te passar os detalhes se quiser, já considerando o seu perfil.",
+          "score": 1,
+          "next": "6",
+          "justification": "Escolha subótima – hesitante e pouco assertiva."
+        },
+        "D": {
+          "text": "Temos um fundo muito popular que a maioria dos clientes escolhe, acho que vai lhe cair bem. Vou te mandar assim que terminarmos a conversa.",
+          "score": 0,
+          "next": "6",
+          "justification": "Escolha incorreta – empurra produto de prateleira sem análise do perfil do investidor."
+        }
+      }
+    },
+    "6": {
+      "prompt": "Lucas, essa ideia faz sentido, mas não sei se quero comprometer um valor fixo mensal. Há flexibilidade nisso?",
+      "options": {
+        "A": {
+          "text": "Sim, há opções que permitem contribuições flexíveis, ajustando conforme sua necessidade e planejamento financeiro.",
+          "score": 5,
+          "next": "7",
+          "justification": "Melhor escolha – esclarece com precisão a maleabilidade dos aportes periódicos ou esporádicos."
+        },
+        "B": {
+          "text": "Podemos avaliar um plano que se adapte ao seu fluxo financeiro, sem compromissos rígidos.",
+          "score": 3,
+          "next": "7",
+          "justification": "Boa escolha – tranquiliza o cliente sobre flexibilidade orçamentária."
+        },
+        "C": {
+          "text": "O ideal é manter contribuições fixas, pois facilita o planejamento.",
+          "score": 1,
+          "next": "7",
+          "justification": "Escolha subótima – contraria o anseio de flexibilidade do cliente sem propor solução."
+        },
+        "D": {
+          "text": "Esse fundo exige contribuições regulares, sem margem para alterações.",
+          "score": 0,
+          "next": "7",
+          "justification": "Escolha incorreta – informação inverídica e fecha as portas para a contratação."
+        }
+      }
+    },
+    "7": {
+      "prompt": "Legal, Lucas. Parece interessante. Como posso avaliar se esse fundo realmente faz sentido para mim?",
+      "options": {
+        "A": {
+          "text": "Podemos agendar uma conversa com um especialista para avaliar a melhor estratégia para você.",
+          "score": 5,
+          "next": "8",
+          "justification": "Melhor escolha – conduta consultiva, oferece apoio de especialista e dá conforto ao investidor."
+        },
+        "B": {
+          "text": "Basta atualizarmos seu suitability e podemos iniciar o processo.",
+          "score": 3,
+          "next": "8",
+          "justification": "Boa escolha – menciona o suitability, mas soa excessivamente processual."
+        },
+        "C": {
+          "text": "Se quiser, posso iniciar o processo para você agora, garantindo que esteja alinhado ao seu perfil e objetivos.",
+          "score": 1,
+          "next": "8",
+          "justification": "Escolha subótima – precipitação comercial antes de o cliente amadurecer a decisão."
+        },
+        "D": {
+          "text": "Esse fundo é uma ótima oportunidade. Recomendo fechar hoje mesmo.",
+          "score": 0,
+          "next": "8",
+          "justification": "Escolha incorreta – pressão indevida por fechamento imediato (hard-selling)."
+        }
+      }
+    },
+    "8": {
+      "prompt": "Lucas, gostei da ideia, mas ainda quero pensar mais antes de decidir. Por ora, preciso retomar minha agenda aqui.",
+      "options": {
+        "A": {
+          "text": "Claro, Carlos. Podemos agendar um novo bate-papo para tirar dúvidas e revisar os detalhes quando for conveniente para você.",
+          "score": 5,
+          "next": "end",
+          "justification": "Melhor escolha – Dá espaço para o cliente sem pressioná-lo, mantendo o canal aberto."
+        },
+        "B": {
+          "text": "Posso te enviar um material com mais informações para que avalie no seu tempo?",
+          "score": 3,
+          "next": "end",
+          "justification": "Boa escolha – Sugere um próximo passo sem forçar a decisão."
+        },
+        "C": {
+          "text": "Seria interessante decidir logo para não perder essa oportunidade.",
+          "score": 1,
+          "next": "end",
+          "justification": "Escolha subótima – Tenta criar urgência, mas sem necessidade."
+        },
+        "D": {
+          "text": "Se não decidir agora, pode acabar deixando isso de lado.",
+          "score": 0,
+          "next": "end",
+          "justification": "Escolha incorreta – Tenta pressionar e pode afastar o cliente."
+        }
+      }
+    }
+  },
+  "quiz": [
+    {
+      "id": 1,
+      "title": "Questão de múltipla escolha 1",
+      "question": "Após a conversa, Carlos não demonstrou interesse imediato na adesão ao fundo educacional, mas se mostrou receptivo às informações e mencionou que avaliaria a proposta no futuro. Diante dessa situação, a melhor ação de Lucas para garantir um bom acompanhamento do cliente sem ser invasivo seria:",
+      "options": {
+        "A": "Registrar as informações da conversa no CRM do banco, programar um contato futuro e enviar um material explicativo sobre os benefícios do fundo, reforçando os pontos discutidos.",
+        "B": "Ligar para Carlos no dia seguinte e insistir que ele aproveite à oportunidade o quanto antes, pois o fundo pode sofrer alterações.",
+        "C": "Não entrar mais em contato e aguardar que Carlos procure o banco caso tenha interesse.",
+        "D": "Oferecer a Carlos um desconto especial na taxa de administração do fundo para incentivá-lo a tomar uma decisão rápida."
+      },
+      "correct": "A",
+      "justification": "A gestão estruturada no CRM combinada com envio de material informativo preserva o relacionamento de longo prazo sem ser inconveniente nem violar o ritmo de decisão do cliente."
+    },
+    {
+      "id": 2,
+      "title": "Questão de múltipla escolha 2",
+      "question": "A opção que melhor descreve as vantagens do fundo educacional em comparação à estratégia atual do cliente é:",
+      "options": {
+        "A": "Os CDBs e ações permitem acumular recursos ao longo do tempo, mas podem expor o cliente a riscos de mercado e falta de previsibilidade no resgate. O fundo educacional, por outro lado, oferece mais estabilidade e benefícios fiscais, tornando-se uma alternativa complementar interessante.",
+        "B": "A estratégia atual do cliente pode ser suficiente, desde que ele acompanhe regularmente os riscos e a liquidez dos investimentos.",
+        "C": "O fundo educacional tende a ser mais vantajoso para quem busca segurança e planejamento de longo prazo, enquanto os CDBs e ações podem oferecer maior flexibilidade.",
+        "D": "Investimentos individuais como CDBs e ações geralmente oferecem boas oportunidades de crescimento, mas não necessariamente garantem que os recursos estarão disponíveis no momento certo para despesas educacionais."
+      },
+      "correct": "A",
+      "justification": "Fundos com finalidade previdenciária/educacional costumam contar com incentivos tributários e gestão profissional calibrada ao horizonte de vencimento da necessidade educacional, protegendo o patrimônio das oscilações voláteis de renda variável e tributações semestrais comuns."
+    }
+  ]
+}
